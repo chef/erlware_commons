@@ -1,6 +1,9 @@
 Erlware Commons
 ===============
 
+_The chef/erlware_commons fork of this project is used internally by Chef Software, Inc. in one specific case and is not meant to be used by anybody for any other reason. Please use [erlware/erlware_commons](https://github.com/erlware/erlware_commons) instead._
+
+
 Current Status
 --------------
 [![Build Status](https://secure.travis-ci.org/erlware/erlware_commons.png)](http://travis-ci.org/erlware/erlware_commons)
