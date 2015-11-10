@@ -238,23 +238,25 @@ format(Log) ->
         C =:= $B orelse C =:= $M orelse C =:= $C).
 
 
+colorize(_, _, _, Msg) -> Msg.
+
 %% When it is suposed to be bold and we already have a uppercase
 %% (bold color) we don't need to modify the color
-colorize(State, Color, true, Msg)  when ?VALID_COLOR(Color),
-                                        Color >= $A, Color =< $Z ->
-    colorize(State, Color, fase, Msg);
-%% We're sneaky we can substract 32 to get the uppercase character if we want
-%% bold but have a non bold color.
-colorize(State, Color, true, Msg) when ?VALID_COLOR(Color) ->
-    colorize(State, Color - 32, fase, Msg);
-colorize(#state_t{caller=command_line, intensity = high},
-         Color, false, Msg) when ?VALID_COLOR(Color) ->
-    lists:flatten(cf:format("~!" ++ [Color] ++"~s~s", [?PREFIX, Msg]));
-colorize(#state_t{caller=command_line, intensity = low},
-         Color, false, Msg) when ?VALID_COLOR(Color) ->
-    lists:flatten(cf:format("~!" ++ [Color] ++"~s~!!~s", [?PREFIX, Msg]));
-colorize(_LogState, _Color, _Bold, Msg) ->
-    Msg.
+%colorize(State, Color, true, Msg)  when ?VALID_COLOR(Color),
+%                                        Color >= $A, Color =< $Z ->
+%    colorize(State, Color, fase, Msg);
+%%% We're sneaky we can substract 32 to get the uppercase character if we want
+%%% bold but have a non bold color.
+%colorize(State, Color, true, Msg) when ?VALID_COLOR(Color) ->
+%    colorize(State, Color - 32, fase, Msg);
+%colorize(#state_t{caller=command_line, intensity = high},
+%         Color, false, Msg) when ?VALID_COLOR(Color) ->
+%    lists:flatten(cf:format("~!" ++ [Color] ++"~s~s", [?PREFIX, Msg]));
+%colorize(#state_t{caller=command_line, intensity = low},
+%         Color, false, Msg) when ?VALID_COLOR(Color) ->
+%    lists:flatten(cf:format("~!" ++ [Color] ++"~s~!!~s", [?PREFIX, Msg]));
+%colorize(_LogState, _Color, _Bold, Msg) ->
+%    Msg.
 
 %%%===================================================================
 %%% Test Functions
