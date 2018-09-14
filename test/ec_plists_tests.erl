@@ -23,6 +23,12 @@ ftmap_good_test() ->
     ?assertMatch([{value, ok}, {value, ok}, {value, ok}],
                  Results).
 
+ftmap_cluster_good_test() ->
+    L = lists:seq(1, 3),
+    Fun = fun(X) -> X*2 end,
+    Results = ec_plists:ftmap(Fun, L, [1, {processes, 3}] ),
+    ?assertEqual([{value, 2}, {value, 4}, {value, 6}], Results).
+
 filter_good_test() ->
     Results = ec_plists:filter(fun(X) ->
                                        X == show
