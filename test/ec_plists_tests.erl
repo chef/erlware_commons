@@ -23,6 +23,24 @@ ftmap_good_test() ->
     ?assertMatch([{value, ok}, {value, ok}, {value, ok}],
                  Results).
 
+ftmap_good_2_test() ->
+    Checksums = ["a",
+                 "b",
+                 "e"],
+    Fun = fun(X) ->
+                  case X of
+                      [$a] ->
+                          ok;
+                      [$e] ->
+                          error;
+                      [_] ->
+                          nope
+                  end
+          end,
+    Results = ec_plists:ftmap(Fun, Checksums,
+                              [1, {processes, length(Checksums)}]),
+    ?assertMatch([{value, ok}, {value, nope}, {value, error}], Results).
+
 filter_good_test() ->
     Results = ec_plists:filter(fun(X) ->
                                        X == show
